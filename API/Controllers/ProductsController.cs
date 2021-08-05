@@ -2,17 +2,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Dtos;
+using API.Errors;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specification;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
-{
-    [ApiController]             //API controller attribute
-    [Route("api/[controller]")]  //Routing attribute
-    public class ProductsController : ControllerBase
+{         
+    public class ProductsController : BaseApiController
     {                                                     //end points go here ie a couple of methods
         private readonly IGenericRepository<Product> _productsRepo;            // ListAllAsync gets its type from here.
         private readonly IGenericRepository<ProductBrand> _productBrandRepo;
@@ -42,11 +42,15 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]                                         // will be used to get a single product
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProductToReturnDto>> GetProductp(int id)
         {
             var spec = new ProductsWithTypesAndBrandsSpecification(id);
 
             var product = await _productsRepo.GetEntityWithSpec(spec);          // function from generic repository
+            
+            if (product == null) return NotFound(new ApiResponse(400));
 
             return _mapper.Map<Product, ProductToReturnDto>(product);
         }

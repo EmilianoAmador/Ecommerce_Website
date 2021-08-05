@@ -24,6 +24,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();

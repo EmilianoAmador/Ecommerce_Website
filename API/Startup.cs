@@ -32,6 +32,15 @@ namespace API
             services.AddApplicationServices();
             services.AddSwaggerDocumentation();
 
+            // Enables CORS Support: tells our client application not to return a header if its running on an unsecured port.
+            services.AddCors(opt => 
+                {
+                opt.AddPolicy("CorsPolicy", policy => 
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
+                });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +59,9 @@ namespace API
             app.UseRouting();             // helps us access API end points by routing them
 
             app.UseStaticFiles();
+            
+            // CORS Middleware
+            app.UseCors("CorsePolicy");
 
             app.UseAuthorization();
 

@@ -49,7 +49,7 @@ namespace API
         {
             app.UseMiddleware<ExceptionMiddleware>();     // Miiddleware to use exception handling middleware in Middleware folder
 
-
+            app.UseSwaggerDocumentation();
 
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
@@ -61,11 +61,10 @@ namespace API
             app.UseStaticFiles();
             
             // CORS Middleware
-            app.UseCors("CorsePolicy");
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
-
-            app.UseSwaggerDocumentation();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>   // middleware that helps app know which ends points are available to route
             {

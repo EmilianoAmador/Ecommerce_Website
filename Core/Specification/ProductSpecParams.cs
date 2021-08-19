@@ -1,7 +1,7 @@
 namespace Core.Specification
 {
 
-    // This class extends the parameters for the ProductController.cs
+    // This class extends creates the parameters for the http string which is used in browser to make calls to our API defined in ProductsController.cs 
     public class ProductSpecParams
     {
         // Pagination parameter extensions
@@ -16,12 +16,16 @@ namespace Core.Specification
             set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
         }
 
-        // BrandId and TypeId Parameters
+        // Sets the parameters in our HTTP that fetches API data 
         public int? BrandId {get; set;}
         public int? TypeId {get; set;}
-
-        // Sorting Parameters
         public string Sort { get; set;}
+        private string _search;
+        public string Search
+        {
+            get => _search;
+            set => _search = value.ToLower();
+        }
 
     }
 }

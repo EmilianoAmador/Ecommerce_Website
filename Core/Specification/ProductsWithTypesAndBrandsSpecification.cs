@@ -4,10 +4,12 @@ using Core.Entities;
 
 namespace Core.Specification
 {
+    /// This Class enables feature functionality in our front end
     public class ProductsWithTypesAndBrandsSpecification : BaseSpecification<Product>
     {
         public ProductsWithTypesAndBrandsSpecification(ProductSpecParams productParams) : base(x =>
-            (!productParams.BrandId.HasValue || x.ProductBrandId == productParams.BrandId) &&  // if Id present (then left is false and right of the or/else condition excecutes) && allows to pass both filters 
+            (string.IsNullOrEmpty(productParams.Search) || x.Name.ToLower().Contains(productParams.Search)) &&     // if search bar is empty
+            (!productParams.BrandId.HasValue || x.ProductBrandId == productParams.BrandId) &&                      // if Id present (then left is false and right of the (|| - else) condition excecutes) && allows to pass both filters 
             (!productParams.TypeId.HasValue || x.ProductTypeId == productParams.TypeId)
             )
         {

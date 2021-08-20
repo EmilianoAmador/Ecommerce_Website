@@ -5,6 +5,10 @@ import { IBrand } from '../shared/models/brand';
 import { IType } from '../shared/models/productType.';
 import { map } from 'rxjs/operators';
 import { ShopParams } from '../shared/models/shopParams';
+import { IProduct } from '../shared/models/products';
+
+
+// Angular services retrieve data from the API
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +47,10 @@ export class ShopService {
         })
 
     )
+  }
+  //gets a single product info: will help view button on each product card
+  getProduct(id: number) {
+    return this.http.get<IProduct>(this.baseUrl + 'products/' + id);
   }
 
   getBrands() {

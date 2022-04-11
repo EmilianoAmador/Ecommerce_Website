@@ -17,6 +17,7 @@ import { TextInputComponent } from './components/text-input/text-input.component
     OrderTotalsComponent,
     TextInputComponent
   ],
+  
   imports: [
     CommonModule,
     PaginationModule.forRoot(),           // for root bc paginationModule has its own provider's array and those providers need ot be injected to root module at start up

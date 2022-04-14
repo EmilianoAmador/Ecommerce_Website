@@ -11,12 +11,11 @@ export class AppComponent implements OnInit {
   title = 'Skinet';
 
 
-  constructor (private basketService: BasketService, private accountService: AccountService) {}   // injecting the http service
+  constructor (private basketService: BasketService, private accountService: AccountService) { }   // injecting the http service
 
   ngOnInit(): void {    
     this.loadBasket();  
     this.loadCurrentUser();                                                                                 // life cycle hook
-    
 }
 
 /**
@@ -24,13 +23,11 @@ export class AppComponent implements OnInit {
  */
 loadCurrentUser() {
   const token = localStorage.getItem('token');
-  if (token) {
-    this.accountService.loadCurrentUser(token).subscribe(() => {
-      console.log('loaded user');
-    }, error => {
-      console.log(error);
-    });
-  }
+  this.accountService.loadCurrentUser(token).subscribe(() => {
+    console.log('loaded user');
+  }, error => {
+    console.log(error);
+  })
 }
 
 /**

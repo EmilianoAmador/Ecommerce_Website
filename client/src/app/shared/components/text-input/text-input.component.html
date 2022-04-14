@@ -15,4 +15,9 @@
         <span *ngIf="controlDir.control.errors?.required">{{label}} is required</span>
         <span *ngIf="controlDir.control.errors?.pattern">Invalid email address</span>
     </div>
+
+    <div class="invalid-feedback d-block" *ngIf="(!controlDir?.control?.valid && controlDir?.control?.dirty)" >
+        <span *ngIf="controlDir.control.errors?.emailExists">Email address is in use</span>
+    </div>
+
 </div>
